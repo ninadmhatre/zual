@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+{% import 'macro/display_helper.html' as helper %}
+
+{% block title %}Echoing - Blog{% endblock title %}
+{% block topnavigation %}
+            <li class="page-scroll"><a href="/blog">Blog</a> </li>
+{% endblock %}
+
+{% block jquery %}
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      "HTML-CSS": {
+      styles: {
+      ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
+      },
+      tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']],processEscapes: true}
+      });
+</script>
+{% endblock extrajs %}
+
+{% block stylex %}
+    .inpage-conversation-view {margin: 0 60px; padding: 0 7px;}
+
+    div.blog_entry {margin: 20px 0px 20px 0px}
+    div.post {padding: 100px 50px;}
+    div.blog-header {color: #3b93d8;}
+
+    .navbar-default {border-color: rgba(255, 255, 255, 0.3); background-color:  #24282d;}
+    bold {font-style: bold;}
+
+    @media screen and (max-width : 768px){
+
+    }
+{% endblock %}
+
+{% block body %}
+    {% if meta.is_user_blogger %}
+        <div class="modal fade" id="confirmModal" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Are you sure you want to delete this post?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{ url_for('blogging.delete', post_id=post.post_id) }}" method="POST">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <input type="submit" value="Yes" class="btn btn-primary" id="confirmedDelete"/>
+                        </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="post">
+                {% if meta.is_user_blogger %}
+                    <div class="pull-right">
+                        <a data-toggle="modal" data-target="#confirmModal" href="#" id="delete">
+                            <span class="glyphicon glyphicon-trash 5px-gap"></span>&nbsp;Delete
+                        </a>
+                        <a href="{{ url_for('blogging.editor', post_id=post.post_id) }}" id="edit">
+                            <span class="glyphicon glyphicon-edit 5px-gap"></span>&nbsp;Edit
+                        </a>
+                        <a href="{{ url_for('blogging.editor') }}" id="new">
+                            <span class="glyphicon glyphicon-plus 5px-gap"></span>&nbsp;New
+                        </a>
+                    </div>
+                {% endif %}
+
+                <div class="blog_entry">
+                    <div class="toned-down-heading blog-header">{{ post.title }}</div>
+                    <div class="info">
+                        Posted by <a title="get all post by this author"
+                                     href="{{ url_for('blogging.posts_by_author', user_id=post.user_id)}}"><em>{{post.user_name}}</em></a>
+                        on {{post.post_date.strftime('%d %b, %Y')}}
+                    </div>
+                    <div class="blog_post_content" style="padding-top: 20px;">
+                        {{post.rendered_text | safe}}
+                    </div>
+                </div>
+
+                <div class="blog_tags">
+                    <!-- article tags-->
+                    {% if post.tags %}
+                        <span class="glyphicon glyphicon-tags"></span>
+                        {% for tag in post.tags %}
+                            <span class="label">
+                              <a title="get all post by '{{ tag }}' tag"
+                                 href="{{ url_for('blogging.posts_by_tag', tag=tag.lower(), count=10, offset=0) }}">
+                                  {{ tag }}
+                              </a>
+                            </span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {{ helper.add_sharing() }}
+
+                <hr class="star-primary">
+
+                <!-- NOTE: Below Section of Code (i.e showing 'next' and 'previous' post to the current post are not supported by 
+                           Flask-Blogging, these are additional changes and PR (Pull Request) is already raised by not approved 
+                           by author of the Flask-Blogging!
+                <nav>
+                    <ul class="pager">
+                        {#% if post.last %#}
+                        <li class="previous">
+                            <a title="see previous post" href="<< url_for('blogging.page_by_id', post_id=post.last[0]) >>"><span aria-hidden="true">&larr;</span> << post.last[1] >></a>
+                        </li>
+                        {#% else %#}
+                        <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+                        {#% endif %}
+                        {#% if post.next %#}
+                        <li class="next">
+                            <a title="see next post" href="<< url_for('blogging.page_by_id', post_id=post.next[0]) >>"><< post.next[1] >> <span aria-hidden="true">&rarr;</span></a>
+                        </li>
+                        {#% else %#}
+                        <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span> </a></li>
+                        {#% endif %#}
+                    </ul>
+                </nav>
+                -->
+
+                {% include 'blogging/comments.html' %}
+                <div id="spot-im-frame-inpage" data-post-id="{{ post.title|page_id }}"></div>
+            </div>
+        </div>
+    </div>
+
+<div id="virtual">
+    {{ helper.footer() }}
+</div>
+{% endblock body %}

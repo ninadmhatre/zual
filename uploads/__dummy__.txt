@@ -1,0 +1,2 @@
+# This is just a dummy file so that empty directory can be checked in!
+# Used for storing uploaded content!

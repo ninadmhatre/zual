@@ -1,0 +1,48 @@
+Metadata-Version: 1.1
+Name: Flask-Blogging
+Version: 0.5.1.local
+Summary: A flask extension for adding Markdown blog support to your site
+Home-page: https://github.com/gouthambs/Flask-Blogging
+Author: Gouthaman Balaraman
+Author-email: gouthaman.balaraman@gmail.com
+License: MIT
+Description: 
+        Flask-Blogging
+        --------------
+        
+        Flask-Blogging is a Flask extension for adding blogging support to
+        your web application. Flask-Blogging comes with the following
+        features out of the box:
+        
+        - Bootstrap based site
+        - Markdown based blog editor
+        - Models to store blog
+        - Authentication of User's choice
+        - Sitemap, ATOM support
+        - Disqus support for comments
+        - Google analytics for usage tracking
+        - Permissions enabled to control which users can create/edit blogs
+        - Incorporates Flask-Cache for fast rendering
+        - Well documented, tested, and extensible design
+        
+        
+        Links
+        `````
+        * `documentation <http://flask-blogging.readthedocs.org/>`_
+        * `development version <https://github.com/gouthambs/Flask-Blogging>`_
+        
+        
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Flask
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% import 'macro/display_helper.html' as helper %}
+{% block title %}Application{% endblock %}
+
+{% block topnavigation %}
+            <li><a href="/blog">Blog</a></li>
+            <li class="page-scroll"><a href="#contact">Contact</a></li>
+{% endblock %}
+
+{% block stylex %}
+    div.content {padding: 100px 20px 20px 20px;}
+{% endblock %}
+
+{% block body %}
+    <div class="content row">
+        <div class="col-lg-12">
+            <div class="well well-sm">
+                <h3>Applications</h3>
+                Something about applications...
+            </div>
+
+            <div class="app_list">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3>Python Modules Update Checker</h3>
+                        <p style="font-size: 85%;">
+                         Just a sample entry!!
+                        </p>
+                        <a href="#" class="btn btn-info btn-sm">Try App</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact">
+        {{ helper.footer() }}
+    </div>
+{% endblock %}

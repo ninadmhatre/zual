@@ -1,0 +1,87 @@
+{% macro footer() -%}
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">My email...</h4>
+          </div>
+          <div class="modal-body">
+            <p>Please drop me a note on {{ config.PERSONAL_EMAIL }}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-lg-12">
+                        <h3>Contact Me...</h3>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="{{ config.FACEBOOK }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="{{ config.GOOGLE_PLUS }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                            </li>
+                            <li>
+                                <a href="{{ config.GIT_HUB }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
+                            </li>
+                            <li>
+                                <a href="{{ config.LINKED_IN }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <span>|</span>
+                            </li>
+                            <li>
+                                <button type="button" class="btn-social btn-outline" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-envelope"></i></button>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('fileio.get_doc', doc_path='NinadMhatre.docx') }}" class="page-scroll btn-social btn-outline"><i class="fa fa-fw fa-file-word-o"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p style="font-size: 80%;">
+                            Created using
+                            <a href="https://pypi.python.org/pypi/Flask">flask</a>
+                            | <a href="https://pypi.python.org/pypi/Flask-Blogging">flask-blogging</a>
+                            | <a href="https://pypi.python.org/pypi/gunicorn">gunicorn</a>
+                            | <a href="http://getbootstrap.com/">bootstrap</a>
+                        </p>
+                        Copyright &copy; Test User - 2015-16
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endmacro %}
+
+{% macro add_link_new_tab(name, url) %}
+    <a href="{{ url }}" target="_blank">{{ name }}</a>
+{% endmacro %}
+
+{% macro add_link(name, url) %}
+    <a href="{{ url }}">{{ name }}</a>
+{% endmacro %}
+
+{% macro add_sharing() %}
+        <div class="social" style="padding-top: 10px;">
+            <button type="button" class="btn btn-default btn-xs shareSelector" aria-label="Left Align">
+                <span class="glyphicon glyphicon glyphicon-globe" aria-hidden="true"> Share</span>
+            </button>
+        </div>
+{% endmacro %}

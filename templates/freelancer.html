@@ -1,0 +1,192 @@
+{% extends 'layout.html' %}
+{% import 'macro/display_helper.html' as helper %}
+{% block title %}Ninad Mhatre - Profile{% endblock %}
+
+{% block topnavigation %}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile<span class="caret"></span></a>
+                <ul class="dropdown-menu" style="font-size: 80%;">
+                    <li class="page-scroll"><a href="#about">About</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="page-scroll"><a href="#skills">Skills</a></li>
+                    <li class="page-scroll"><a href="#projects">Projects</a></li>
+                    <li class="page-scroll"><a href="#resume">Resume</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="page-scroll"><a href="#virtual">Contact Me</a></li>
+              </ul>
+            </li>
+            <li> <a class="page-scroll" href="/blog">Blog</a></li>
+            <li> <a class="page-scroll" href="/apps">Apps</a></li>
+            <li> <a class="page-scroll" href="#virtual">Contact</a></li>
+{% endblock %}
+
+    <!--&lt;!&ndash; HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries &ndash;&gt;-->
+    <!--&lt;!&ndash; WARNING: Respond.js doesn't work if you view the page via file:// &ndash;&gt;-->
+    <!--&lt;!&ndash;[if lt IE 9]>-->
+        <!--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
+        <!--<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
+
+{% block stylex %}
+	.circular {
+        width: 300px;
+        height: 300px;
+        border-radius: 150px;
+        -webkit-border-radius: 150px;
+        -moz-border-radius: 150px;
+	}
+{% endblock %}
+
+{% block body %}
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img class="img-responsive circular" alt="Ninad Mhatre" src="{{ url_for('fileio.get_img', img_path='dp.jpg') }}">
+                    <div class="intro-text">
+                       <div class="profiles">
+                          <ul class="list-inline">
+                              <li>
+                                  <a href="{{ config.FACEBOOK }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                              </li>
+                              <li>
+                                  <a href="{{ config.GOOGLE_PLUS }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                              </li>
+                              <li>
+                                  <a href="{{ config.GIT_HUB }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
+                              </li>
+                              <li>
+                                  <a href="{{ config.LINKED_IN }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                              </li>
+                              <li>
+                                  <span>|</span>
+                              </li>
+                              <li>
+                                  <button type="button" class="btn-social btn-outline" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-envelope"></i></button>
+                              </li>
+                          </ul>
+                       </div>
+                       <hr class="star-light">
+                        <span class="skills">Passionate Developer - Traveler - Amateur Photographer - Blogger</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>About</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <p>Something about yourself!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- skill -->
+    <section class="success" id="skills">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Skills</h2>
+                    <hr class="star-light">
+                </div>
+            </div>
+
+            <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="skill">
+                    <!--<h3>Technical</h3>-->
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="bold">Categories</td>
+                                <td>Add different categories here, Languages, OS, Framework and etc...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Projects</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 portfolio-item">
+                        <div class="panel panel-info">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">Proj-1</h3>
+                          </div>
+                          <div class="panel-body">
+                            <table class="table table-stripped">
+                                <tbody>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td>Provide some information about your projects!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          </div>
+                        </div>
+                </div>
+
+                <div class="col-sm-6 portfolio-item">
+                           <div class="panel panel-info">
+                               <div class="panel-heading"><h3 class="panel-title">Proj-2</h3></div>
+                               <div class="panel-body">
+                                    <table class="table table-stripped">
+                                        <tbody>
+                                            <tr>
+                                                <td>Description</td>
+                                                <td>Provide some information about your projects!</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                               </div>
+                           </div>
+                </div>
+            </div>
+        </div>
+        <!--</div>-->
+    </section>
+
+    <section class="success" id="resume">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Resume</h2>
+                    <hr class="star-light">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <a class="btn btn-lg btn-outline" href="{{ url_for('fileio.get_doc', doc_path='Resume.docx') }}">
+                    <i class="fa fa-download"></i>
+                        Download
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="virtual">
+        {{ helper.footer() }}
+    </div>
+{% endblock %}

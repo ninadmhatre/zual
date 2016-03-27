@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block title %}Blog - Login {% endblock %}
+{% block topnavigation %}
+            <li> <a class="page-scroll" href="#contact">Contact</a> </li>
+{% endblock %}
+
+{% block body %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flash_msg hide">
+            {% for category, message in messages %}
+                <li>{{ category }}:{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if disable != True %}
+        <div class="row col-lg-4 col-lg-offset-4" style="padding-top: 100px;">
+            <div class="panel panel-default">
+                <div class="panel panel-heading">
+                        <h4 class="panel-title">Login</h4>
+                </div>
+                <div class="panel-body">
+                    <form id="login-form" action="" method="post">
+                        <div class="modal-body">
+                            <input id="login_username" name="user" class="form-control" type="text" placeholder="Username" required>
+                            <input id="login_password" name="chaabi" class="form-control" type="password" placeholder="Password" required>
+                        </div>
+                        <div class="modal-footer col-lg-6 col-lg-offset-3">
+                            <div>
+                                <button type="submit" class="btn btn-success btn-sm btn-block">Login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="well">
+            <h3>Login Is Disabled!!!</h3>
+            <p>
+                Login to admin mode is disabled due to many failed login attempts! Please check your admin email address
+                to re-enable the login.
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}
