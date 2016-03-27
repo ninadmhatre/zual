@@ -1,0 +1,12 @@
+
+{
+    "uuid": "029eae15-9045-42df-bdcc-4d72e2e03f17",
+    "name": "SiteStatsAddon",
+    "type": "DEFAULT",
+    "description": "<Please add some description!>",
+    "execution_seq": ["start", "execute"],
+    "stop_seq": ["stop"],
+    "version": "0.1",
+    "author": "Ninad Mhatre",
+    "help_url": "http://www.google.com/helppage/SiteStatsAddon"
+}

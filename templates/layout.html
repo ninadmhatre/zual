@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta name="description" content="Profile of Ninad Mhatre - Developer / Traveler / Amateur Photographer / Blogger">
+    <meta name="author" content="Ninad Mhatre">
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    {% assets "third_party_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}" type="text/css"/>
+    {% endassets %}
+
+    {% block extrastyle %}{% endblock extrastyle %}
+    <title>
+        {% block title %}{% endblock title %}
+    </title>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!--<title>Ninad Mhatre - Profile</title>-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+</head>
+<body id="page-top" {% if post %}onload="prettyPrint()"{% endif %}>
+    <script type="text/javascript">
+        {% block java_script %}{% endblock %}
+    </script>
+
+    <style type="text/css">
+        .gi-2x{font-size: 2em;}
+        .gi-3x{font-size: 3em;}
+        .gi-4x{font-size: 4em;}
+        .gi-5x{font-size: 5em;}
+
+        .hide {
+            display: none;
+        }
+
+        .btn-circle {
+             width: 30px;
+             height: 30px;
+             text-align: center;
+             padding: 6px 0;
+             font-size: 12px;
+             line-height: 1.42;
+             border-radius: 15px;
+        }
+
+        div.toned-down-heading {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        div.blog_snippet_text {
+            padding-top: 10px;
+            font-size: 85%;
+        }
+
+        div.blog_post_content {
+            padding-top: 10px;
+        }
+
+        5px-gap {
+            padding-right: 10px;
+        }
+
+        bold {
+            font-weight: bold;
+        }
+        {% block stylex %}{% endblock %}
+    </style>
+    
+    <!-- navigation bar -->
+    
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top {% if other_page %} affix {% endif %}">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand page-scroll" href="/">Ninad Mhatre</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+              {% block topnavigation %}{% endblock %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% block body %}{% endblock %}
+
+    {% block js %}{% endblock js %}
+
+    {% block extrajs %}
+    <!--<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>-->
+    <!--<script type="text/x-mathjax-config">-->
+          <!--MathJax.Hub.Config({-->
+          <!--"HTML-CSS": {-->
+          <!--styles: {-->
+          <!--".MathJax .mo, .MathJax .mi": {color: "black ! important"}}-->
+          <!--},-->
+          <!--tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']],processEscapes: true}-->
+          <!--});-->
+    <!--</script>-->
+    {% endblock extrajs %}
+
+    {% assets "third_party_js" %}
+        <script src="{{ ASSET_URL }}" type="text/javascript"></script>
+    {% endassets %}
+
+    <script>
+        $(document).ready(function () {
+            $('.shareSelector').socialShare({
+                social: 'facebook,google,linkedin,pinterest,reddit,stumbleupon,tumblr,twitter',
+                whenSelect: true,
+                selectContainer: '.shareSelector',
+                blur: true,
+            });
+
+            var $flash = $('ul.flash');
+
+            if ( $flash.length > 0 ) {
+                $flash.find('li').each(function() {
+                    var type, msg = $(this).split(':');
+                    if ( type == 'info'  ) {
+                        showInfo(msg);
+                    } else if ( type == 'error' || type == 'warn' ) {
+                        showError(msg);
+                    } else if ( type == 'success') {
+                        showSuccess(msg);
+                    }
+                });
+
+                $flash.remove();
+            }
+
+            {% block jquery %}{% endblock %}
+        });
+    </script>
+    <!-- jquery -->
+
+    {% if not config.debug %}
+    <script type="text/javascript">
+      // Below code is java script
+      // this is google analytics code
+
+      // << Add Your Google Analytics Code >>
+
+    </script>
+    {% endif %}
+</body>
+</html>

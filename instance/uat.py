@@ -1,0 +1,7 @@
+__author__ = 'ninad'
+
+PORT = 6000
+ASSETS_DEBUG = True
+LOG_QUERIES = False
+DEBUG_TB_INTERCEPT_REDIRECTS = False
+DEBUG = False

@@ -1,0 +1,17 @@
+===================================
+   How To Update to New Version
+
+   Ninad Mhatre on 31-Dec-2015
+===================================
+
+1. Checkout the branch which has the latest chagnes in 'upgrade' directory
+2. Start from that directory and access it via IP address:port
+3. Make sure it is working as expected
+4. Kill the gunicorn from papps user, {ps -ef | grep guicorn}
+5. Update the code {git checkout ...}
+6. start the gunicorn 
+
+<< Or Better >>
+
+1-3: Same as above
+4. Configure with supervisor, use that to handle the stopping-starting :)

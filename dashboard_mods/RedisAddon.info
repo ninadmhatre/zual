@@ -1,0 +1,12 @@
+
+{
+    "uuid": "1127137d-8d99-43f3-9d30-b7e1ed2f5a2a",
+    "name": "RedisAddon",
+    "type": "DEFAULT",
+    "description": "Zual - Dashboard - Redis Module",
+    "execution_seq": ["start", "execute"],
+    "stop_seq": ["stop"],
+    "version": "0.1",
+    "author": "Ninad Mhatre",
+    "help_url": "http://www.google.com/helppage/RedisAddon"
+}

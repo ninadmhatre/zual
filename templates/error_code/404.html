@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block title %}Opps!{% endblock %}
+
+{% block body %}
+    <div class="col-lg-4 col-lg-offset-4" style="padding-top: 100px;">
+        <div class="row" style="color: red; padding: 10px 0px;">
+            404: Page you are looking for does not exist!
+        </div>
+        <div class="row" style="padding: 10px 0px;">
+            If you are not at the lake, please click <a href="/blog">here</a> for blog or <a href="{{ url_for('home') }}">here</a> to go back to home.
+        </div>
+    </div>
+{% endblock %}

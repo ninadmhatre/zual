@@ -1,0 +1,66 @@
+/*
+  custom styling fot lbl:resume
+  Date  : 23-May-2015 7:27 PM IST
+  Author: Ninad Mhatre
+*/
+
+body {
+    // TODO: Change the default font
+}
+
+div.content {
+    margin: 0px 10px 5px;
+    padding: 10px 10px 0px 10px;
+}
+
+div.footer {
+    float: right;
+    color: gray;
+    font-style: italic;
+    padding-right: 20px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.user_info {
+    font-size: 80%;
+    font-style: italic;
+    font-color: lightblue;
+}
+
+.field_header {
+    width: 33%;
+}
+
+td.uf_first {
+    border-top: none;
+}
+
+/* For Smaller Screens */
+/* For mobile : like samsung grand(480 * 800): */
+@media screen and (max-width : 480px){
+    body{
+        font-size: 10px;
+        color: blue;
+    }
+}
+
+
+/* For iphone: */
+@media screen and (max-width : 320px){
+    body{
+        font-size: 10px;
+        color: red;
+    }
+}
+
+
+/* For ipad: */
+@media screen and (max-width : 768px){
+    body{
+        font-size: 14px;
+        color: yellow;
+    }
+}

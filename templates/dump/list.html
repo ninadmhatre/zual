@@ -1,0 +1,6 @@
+{% extends 'layout.html' %}
+{% block body %}
+    {% for line in list_data %}
+        {{ line | safe }}<br>
+    {% endfor %}
+{% endblock %}

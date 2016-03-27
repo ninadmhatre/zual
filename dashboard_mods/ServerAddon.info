@@ -1,0 +1,12 @@
+
+{
+    "uuid": "fd637cc3-0428-436f-900e-bc9ccbb2779a",
+    "name": "ServerAddon",
+    "type": "DEFAULT",
+    "description": "<Please add some description!>",
+    "execution_seq": ["start", "execute"],
+    "stop_seq": ["stop"],
+    "version": "0.1",
+    "author": "Ninad Mhatre",
+    "help_url": "http://www.google.com/helppage/ServerAddon"
+}
