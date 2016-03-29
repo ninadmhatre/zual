@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% import 'macro/display_helper.html' as helper %}
-{% block title %}Ninad Mhatre - Profile{% endblock %}
+{% block title %}Your Name - Profile{% endblock %}  <!-- EDIT_THIS  -->
 
 {% block topnavigation %}
             <li class="dropdown">
@@ -16,6 +16,9 @@
               </ul>
             </li>
             <li> <a class="page-scroll" href="/blog">Blog</a></li>
+            {% if current_user.is_authenticated() %}
+            <li> <a href="/dashboard">Dashboard</a></li>
+            {% endif %}
             <li> <a class="page-scroll" href="/apps">Apps</a></li>
             <li> <a class="page-scroll" href="#virtual">Contact</a></li>
 {% endblock %}
@@ -42,7 +45,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-responsive circular" alt="Ninad Mhatre" src="{{ url_for('fileio.get_img', img_path='dp.jpg') }}">
+                    <img class="img-responsive circular" alt="Your Name" src="{{ url_for('fileio.get_img', img_path='dp.png') }}">  <!-- EDIT_THIS -->
                     <div class="intro-text">
                        <div class="profiles">
                           <ul class="list-inline">
@@ -67,7 +70,7 @@
                           </ul>
                        </div>
                        <hr class="star-light">
-                        <span class="skills">Passionate Developer - Traveler - Amateur Photographer - Blogger</span>
+                        <span class="skills">Short Description</span> <!-- EDIT_THIS -->
                     </div>
                 </div>
             </div>
@@ -85,7 +88,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1">
-                    <p>Something about yourself!</p>
+                    <p>Something about yourself!</p> <!-- EDIT_THIS -->
                 </div>
             </div>
         </div>
@@ -108,7 +111,8 @@
                     <table class="table">
                         <tbody>
                             <tr>
-                                <td class="bold">Categories</td>
+                                <!-- EDIT_THIS : Edit below section -->
+                                <td class="bold">Categories</td> 
                                 <td>Add different categories here, Languages, OS, Framework and etc...</td>
                             </tr>
                         </tbody>
@@ -138,6 +142,7 @@
                             <table class="table table-stripped">
                                 <tbody>
                                     <tr>
+                                        <!-- EDIT_THIS : Edit below section -->
                                         <td>Description</td>
                                         <td>Provide some information about your projects!</td>
                                     </tr>
@@ -154,6 +159,7 @@
                                     <table class="table table-stripped">
                                         <tbody>
                                             <tr>
+                                                <!-- EDIT_THIS : Edit below section -->
                                                 <td>Description</td>
                                                 <td>Provide some information about your projects!</td>
                                             </tr>
@@ -178,7 +184,7 @@
         </div>
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 text-center">
-                <a class="btn btn-lg btn-outline" href="{{ url_for('fileio.get_doc', doc_path='Resume.docx') }}">
+                <a class="btn btn-lg btn-outline" href="{{ url_for('fileio.get_doc', doc_path='YourName.docx') }}">   <!-- EDIT_THIS  : change resume file name -->
                     <i class="fa fa-download"></i>
                         Download
                 </a>

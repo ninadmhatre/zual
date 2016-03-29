@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 {% import 'macro/display_helper.html' as helper %}
-{% block title %}Echoing - Blog{% endblock title %}
+{% block title %}Blog{% endblock title %}
 
 {% block topnavigation %}
+            {% if current_user.is_authenticated() %}
+            <li> <a href="/dashboard">Dashboard</a></li>
+            {% endif %}
             <li class="page-scroll"><a href="#contact">Contact</a></li>
 {% endblock %}
 

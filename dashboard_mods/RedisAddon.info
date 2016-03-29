@@ -8,5 +8,5 @@
     "stop_seq": ["stop"],
     "version": "0.1",
     "author": "Ninad Mhatre",
-    "help_url": "http://www.google.com/helppage/RedisAddon"
+    "help_url": "https://github.com/ninadmhatre/zual/blob/master/dashboard_mods/RedisAddon.py"
 }
