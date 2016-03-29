@@ -5,7 +5,7 @@ Personal Site Creation - Flask Based Skeleton (No apparant reason for naming it 
 ### Things To Note
    -  This is [Flask](http://flask.pocoo.org/) based application!
    -  Works on **Python 3.4**! 
-   -  You need to work on **look** and **chages** in some files.
+   -  You need to work on **look** and **changes** in some files.
    -  Uses [Bootstrap 3](http://getbootstrap.com/)
    -  This is Flask based, so you can extend to do anything you want!
 
@@ -28,11 +28,38 @@ Having this skeleton site will help you but still you need to work on things to 
    - Setting up machine (in case VPS only)
      - Creating users
      - Installing applications like redis, nginx
-     - Installing dependencies
+     - Installing dependencies [Python Modules](https://github.com/ninadmhatre/zual/blob/master/requirements.txt)
      - Configuring nginx with SSL
      - etc...
    - Setup `sendmail` on host to send out warning emails
    - `cron` job to monitor the status of application
+
+   You need to edit the part of code around 20 entries, run below command to find those 
+
+   ```
+   $ find path/to/zual/code -type f | xargs grep EDIT_THIS
+   ./instance/default.py:SECRET_KEY = 'Secret_key' # <-- EDIT_THIS
+   ./instance/default.py:ADMIN_MAIL = 'test.mail@yourdomain.com' # <-- EDIT_THIS
+   ./instance/default.py:GOOGLE_PLUS = 'https://plus.google.com/<< Your G+ Profile >>'     # <-- EDIT_THIS
+   ./instance/default.py:GIT_HUB = 'https://github.com/<< Your GitHub >>'                  # <-- EDIT_THIS
+   ./instance/default.py:LINKED_IN = '<< linked in profile >>'                             # <-- EDIT_THIS
+   ./templates/macro/display_helper.html:                                <!-- EDIT_THIS  : change file name for resume -->
+   ./templates/macro/display_helper.html:                        Copyright &copy; Test User - 2015-16  <!-- EDIT_THIS : Change name in copyright -->
+   ./templates/freelancer.html:{% block title %}Your Name - Profile{% endblock %}  <!-- EDIT_THIS  -->
+   ./templates/freelancer.html:                    <img class="img-responsive circular" alt="Your Name" src="{{ url_for('fileio.get_img', img_path='dp.png') }}">  <!-- EDIT_THIS -->
+   ./templates/freelancer.html:                        <span class="skills">Short Description</span> <!-- EDIT_THIS -->
+   ./templates/freelancer.html:                    <p>Something about yourself!</p> <!-- EDIT_THIS -->
+   ./templates/freelancer.html:                                <!-- EDIT_THIS : Edit below section -->
+   ./templates/freelancer.html:                                        <!-- EDIT_THIS : Edit below section -->
+   ./templates/freelancer.html:                                                <!-- EDIT_THIS : Edit below section -->
+   ./templates/freelancer.html:                <a class="btn btn-lg btn-outline" href="{{ url_for('fileio.get_doc', doc_path='YourName.docx') }}">   <!-- EDIT_THIS  : change resume file name -->
+   ./templates/layout.html:          <a class="navbar-brand page-scroll" href="/">Your Name</a> <!-- EDIT_THIS -->
+   ./templates/layout.html:      // << EDIT_THIS Add Your Google Analytics Code >>
+   ./controller/authentication.py:chaabi = 'your_password_123'  # <-- EDIT_THIS 
+   ./controller/authentication.py:email_confirm_key = 'some other secret key'  # <-- EDIT_THIS
+   ./controller/authentication.py:            user = User("test_user")   # EDIT_THIS  : change user name! 
+
+   ```
 
 
 ### Good to have
@@ -45,6 +72,7 @@ It will be really good if you have,
 
 If you see the list of things to work for site, it's overwhelming but trust me all is needed is 2-3 hours of time or worst case 1 day of effort
 
+
 ### Feature
 
 1. Based on Flask; so extend it the way you want it
@@ -56,6 +84,17 @@ If you see the list of things to work for site, it's overwhelming but trust me a
 
 1. Individual page visit counter like per blog entry 
 2. More addons for dashboard 
+
+
+### Getting Started
+
+1. Use Linux! If you are windows download Virtual box and install (lubntu like) linux (this will make life easier)
+2. Clone the repository & cd to it
+3. create virtual environment & install all the requirement `pip install -r requirements.txt`
+4. Run `find . -type f | xargs grep EDIT_THIS` command and do the appropriate changes
+5. Install redis (please check redis home page for instructions)
+6. Start the application `python run_flask_app.py`
+7. Play around!
 
 
 ### FAQ

@@ -16,7 +16,7 @@ auth = Blueprint('auth', __name__)
 
 # TODO: flash messages not working at the moment!
 
-chaabi = 'your_password_123'
+chaabi = 'your_password_123'  # <-- EDIT_THIS 
 
 MailInfo = namedtuple('MailInfo', 'Sender To Message Subject')
 
@@ -29,7 +29,7 @@ _failed_cnt = 0
 _last_attempt = datetime.datetime.utcnow()
 
 ts = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-email_confirm_key = 'some other secret key'
+email_confirm_key = 'some other secret key'  # <-- EDIT_THIS
 
 
 def authenticate(u, p):
@@ -118,7 +118,7 @@ def login():
             guard('POST')
             flash("Invalid Username or Password!", 'error')
         else:
-            user = User("ninadmhatre")
+            user = User("test_user")   # EDIT_THIS  : change user name! 
             login_user(user)
             return redirect("/blog")
     guard('GET')

@@ -6,9 +6,9 @@ import os
 
 DEBUG = True
 LOG_QUERIES = False
-SECRET_KEY = '<< Your Secret Key >>' 
-PORT = 22000
-ADMIN_MAIL = '<< your email address! one you check >>'
+SECRET_KEY = 'Secret_key' # <-- EDIT_THIS
+PORT = 5000
+ADMIN_MAIL = 'test.mail@yourdomain.com' # <-- EDIT_THIS
 LOGGER = {
     'FILE': dict(FILE='logs/log.log',
                  LEVEL=logging.DEBUG,
@@ -39,12 +39,12 @@ CACHE = dict(redis=dict(
 
 # URL's
 
-FACEBOOK = 'https://www.facebook.com/<< Your FB profile name >>'
-GOOGLE_PLUS = 'https://plus.google.com/<< Your G+ Profile >>'
-GIT_HUB = 'https://github.com/<< Your GitHub >>'
-LINKED_IN = '<< linked in profile >>'
-PERSONAL_EMAIL = '<< Personal Mail ID >>'
-
+FACEBOOK = 'https://www.facebook.com/<< Your FB profile name >>'  # <-- EDIR_THIS
+GOOGLE_PLUS = 'https://plus.google.com/<< Your G+ Profile >>'     # <-- EDIT_THIS
+GIT_HUB = 'https://github.com/<< Your GitHub >>'                  # <-- EDIT_THIS
+LINKED_IN = '<< linked in profile >>'                             # <-- EDIT_THIS
+PERSONAL_EMAIL = ADMIN_MAIL
+      
 # Upload Folder
 IMAGE_FOLDER = os.path.abspath('blog/img')
 DOCS_FOLDER = os.path.abspath('blog/docs')
