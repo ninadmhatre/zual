@@ -73,6 +73,20 @@ It will be really good if you have,
 If you see the list of things to work for site, it's overwhelming but trust me all is needed is 2-3 hours of time or worst case 1 day of effort
 
 
+### Links 
+
+Apart from obvious ones there are couple of hidden links
+
+Path | Description | Hidden? 
+--- | --- | --- 
+**/** | Home | No 
+**/login** | Login page, for adding blog entries and viewing dashboard | Yes
+**/logout** | Logout | Yes
+**/blog** | Blog listing page | No
+**/apps** | Apps page, in case you have apps that you want to run on the site | No
+**/dashboard** | Dashboard, to view status of application / server | Yes - Login Only
+
+
 ### Feature
 
 1. Based on Flask; so extend it the way you want it
@@ -95,6 +109,12 @@ If you see the list of things to work for site, it's overwhelming but trust me a
 5. Install redis (please check redis home page for instructions)
 6. Start the application `python run_flask_app.py`
 7. Play around!
+
+
+### Bugs
+
+1. **Accessing dashboard without `redis` being installed/down may crash application**
+   - I am yet to check this but should be easy to fix!
 
 
 ### FAQ

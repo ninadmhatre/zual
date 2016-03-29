@@ -161,6 +161,8 @@ class ServerAddon(IAddonInfo):
                             </table>
                         </div>
                     </div>
+                    <br>
+                    <p style="font-size: 80%; color: gray;">Know more about this module <a href="{{ help_url }}" target="_blank">here</a></p>
                 </div>
             </div>
         </div></div>''')
