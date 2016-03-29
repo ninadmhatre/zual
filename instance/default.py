@@ -39,7 +39,7 @@ CACHE = dict(redis=dict(
 
 # URL's
 
-FACEBOOK = 'https://www.facebook.com/<< Your FB profile name >>'  # <-- EDIR_THIS
+FACEBOOK = 'https://www.facebook.com/<< Your FB profile name >>'  # <-- EDIT_THIS
 GOOGLE_PLUS = 'https://plus.google.com/<< Your G+ Profile >>'     # <-- EDIT_THIS
 GIT_HUB = 'https://github.com/<< Your GitHub >>'                  # <-- EDIT_THIS
 LINKED_IN = '<< linked in profile >>'                             # <-- EDIT_THIS
@@ -56,4 +56,4 @@ DASHBOARD_MODS = 'dashboard_mods'
 # Mail
 
 __RELEASE__ = 'm4'
-__VERSION__ = '2.3.27-0'  # Year.Month.Day-Patch Note: 2015 is 1
+__VERSION__ = '2.3.29-0'  # Year.Month.Day-Patch Note: 2015 is 1

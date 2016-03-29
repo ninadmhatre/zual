@@ -91,7 +91,7 @@ site_assets.init_app(app)
 
 
 @app.route('/')
-@cache.cached(timeout=600)
+#@cache.cached(timeout=600)
 def home():
     """
     Any guesses?
