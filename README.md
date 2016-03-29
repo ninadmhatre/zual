@@ -4,10 +4,26 @@ Personal Site Creation - Flask Based Skeleton (No apparant reason for naming it 
 
 ### Things To Note
    -  This is [Flask](http://flask.pocoo.org/) based application!
-   -  Works on **Python 3.4**! 
+   -  Works on **Python 3.4+**! 
    -  You need to work on **look** and **changes** in some files.
    -  Uses [Bootstrap 3](http://getbootstrap.com/)
    -  This is Flask based, so you can extend to do anything you want!
+
+### See before you try
+
+If you want to have a live demo of this you can either visit my [own site](https://ninadmhatre.com) or check out the below screen shots
+
+1. Home 
+![home](https://github.com/ninadmhatre/zual/blob/master/screenshots/home.png)
+---
+2. Blog Listing
+![blog listing](https://github.com/ninadmhatre/zual/blob/master/screenshots/blog_index.png)
+---
+3. Blog Entry with sharing options
+![blog entry](https://github.com/ninadmhatre/zual/blob/master/screenshots/blog_entry_with_share.png)
+---
+4. Dashboard page
+![dashboard](https://github.com/ninadmhatre/zual/blob/master/screenshots/Dashboard.png)
 
 ### Why?
 
@@ -36,7 +52,7 @@ Having this skeleton site will help you but still you need to work on things to 
 
    You need to edit the part of code around 20 entries, run below command to find those 
 
-   ```
+   ```bash
    $ find path/to/zual/code -type f | xargs grep EDIT_THIS
    ./instance/default.py:SECRET_KEY = 'Secret_key' # <-- EDIT_THIS
    ./instance/default.py:ADMIN_MAIL = 'test.mail@yourdomain.com' # <-- EDIT_THIS
