@@ -1,1 +1,5 @@
 .idea
+*.pyc
+__pycache__/*
+logs/log.log
+stats.db
