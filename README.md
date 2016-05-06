@@ -9,6 +9,8 @@ Personal Site Creation - Flask Based Skeleton (No apparant reason for naming it 
    -  Uses [Bootstrap 3](http://getbootstrap.com/)
    -  This is Flask based, so you can extend to do anything you want!
 
+### Checkout the latest update making it almost complete
+
 ### See before you try
 
 If you want to have a live demo of this you can either visit my [own site](https://ninadmhatre.com) or check out the below screen shots
@@ -130,7 +132,7 @@ Path | Description | Hidden?
 ### Bugs
 
 1. **Accessing dashboard without `redis` being installed/down may crash application**
-   - I am yet to check this but should be easy to fix!
+   - Fixed.
 
 
 ### FAQ
