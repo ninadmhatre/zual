@@ -1,3 +1,4 @@
+{% import 'macro/display_helper.html' as helper %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -76,9 +77,22 @@
         bold {
             font-weight: bold;
         }
+
+        .btn-glyphicon { padding:8px; background:#ffffff; margin-right:4px; }
+        .icon-btn { padding: 1px 15px 3px 2px; border-radius:50px;}
+
         {% block stylex %}{% endblock %}
+        {% block extra_css %}{% endblock %}
     </style>
-    
+
+    {%- if alert and alert['disabled'] == 'False' -%}
+    <div class="alerts row" style="padding-top: 65px;">
+        <div class="alert alert-{{ alert['type'] }}" role="alert">
+            {{ alert['text']|safe }}
+        </div>
+    </div>
+    {%- endif -%}
+
     <!-- navigation bar -->
     
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top {% if other_page %} affix {% endif %}">
@@ -100,6 +114,16 @@
         </div>
       </div>
     </nav>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 
     {% block body %}{% endblock %}
 
@@ -131,23 +155,63 @@
                 blur: true,
             });
 
-            var $flash = $('ul.flash');
+            function csrfSafeMethod(method) {
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
 
-            if ( $flash.length > 0 ) {
-                $flash.find('li').each(function() {
-                    var type, msg = $(this).split(':');
-                    if ( type == 'info'  ) {
-                        showInfo(msg);
-                    } else if ( type == 'error' || type == 'warn' ) {
-                        showError(msg);
-                    } else if ( type == 'success') {
-                        showSuccess(msg);
+            function getCsrfToken() {
+                var cookieVal = null;
+
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var c = jQuery.trim(cookies[i]);
+                        if (c.startsWith('_csrf_token')) {
+                            cookieVal = decodeURIComponent(c.split('=')[1]);
+                            break;
+                        }
+                    }
+                }
+                return cookieVal;
+            }
+
+            var csrfToken = getCsrfToken();
+
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader('X-CSRFToken', csrfToken);
+                    }
+                }
+            });
+
+            $(window).bind('load', function() {
+                var $viewElem = $('#views');
+                if ( $viewElem.length == 0 ) { return false; }
+                var $title = document.title;
+                if (!$title) { return false; }
+                if ($title == 'Echoing - Blog') {
+                    var $postTitle = $('div.title').text();
+                    if (!$postTitle) { return false; }
+                    $title = $postTitle;
+                }
+                page_data = {'page_title': $title}
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url_for('api.view_counter') }}",
+                    data: JSON.stringify(page_data),
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(result) {
+                        console.log(result);
+                        $('#views').text(result.views);
                     }
                 });
 
-                $flash.remove();
-            }
+                return false;
+            });
 
+            flashToToaster();
             {% block jquery %}{% endblock %}
         });
     </script>

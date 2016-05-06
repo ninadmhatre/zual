@@ -3,9 +3,19 @@
 {% block title %}Opps!{% endblock %}
 
 {% block body %}
-    <div class="col-lg-4 col-lg-offset-4" style="padding-top: 100px;">
+    <div class="col-lg-6 col-lg-offset-3" style="padding-top: 100px;">
         <div class="row" style="color: red; padding: 10px 0px;">
             404: Page you are looking for does not exist!
+        </div>
+        <br>
+        <div class="row" style="padding: 10px 0px;">
+            How about a Joke?
+        </div>
+        <div class="xkcd_img">
+            <img src="{{ url_for('fileio.get_img', img_path='error_code.png') }}"alt="404 page, looks like its not a good time for a joke!"/>
+        </div>
+        <div class="row" style="font-size: 80%; color:gray; padding: 10px 0px;">
+            picture courtesy, XKCD!
         </div>
         <div class="row" style="padding: 10px 0px;">
             If you are not at the lake, please click <a href="/blog">here</a> for blog or <a href="{{ url_for('home') }}">here</a> to go back to home.

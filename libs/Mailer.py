@@ -14,7 +14,7 @@ class Mailer(object):
     def send_simple_mail(self, details):
         msg = Message(subject=details.Subject,
                       sender=details.Sender,
-                      recipients=details.To,
+                      recipients=details.To.split(','),
                       html=details.Message)
 
         self._send(msg)

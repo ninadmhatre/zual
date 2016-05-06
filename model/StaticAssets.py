@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-_author__ = 'ninad'
+__author__ = 'ninad'
 
 # Flask
 from flask.ext.assets import Bundle, Environment
@@ -28,6 +27,7 @@ bundles = {
         'css/font-awesome.min.css',
         'css/bootstrap.min.css',
         'css/prettify.css',
+        'css/site_personal.css',
         'css/arthref.min.css',
         'css/toastr.min.css',
         'css/freelancer.css',
@@ -41,5 +41,5 @@ site_assets.register(bundles)
 
 def get_assets():
     print('Here from lblrsm.assets....')
-    return lblrsm_assets
+    return site_assets
 

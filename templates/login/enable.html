@@ -2,8 +2,9 @@
 
 {% block title %}Blog - Login {% endblock %}
 {% block topnavigation %}
-            <li> <a class="page-scroll" href="#contact">Contact</a> </li>
+    {{ helper.addTopNavigation(current_user, show_profile=False) }}
 {% endblock %}
+
 {% block body %}
 
 {% endblock %}

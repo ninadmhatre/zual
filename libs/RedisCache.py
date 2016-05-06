@@ -22,7 +22,7 @@ class RedisCache(object):
         else:
             return False
 
-    def set(self, key, val, timeout=43200, **kwargs):
+    def set(self, key, val, timeout=86400, **kwargs):
         """
         Set key with timeout default with 12 hrs
         :param string key:
@@ -44,5 +44,6 @@ class RedisCache(object):
         return None
 
     def info(self):
-        data = self.conn.info(section='all')
-        return data
+        if not self.offline:
+            return self.conn.info(section='all')
+        return None

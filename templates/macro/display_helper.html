@@ -1,74 +1,75 @@
 {% macro footer() -%}
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">My email...</h4>
-          </div>
-          <div class="modal-body">
-            <p>Please drop me a note on {{ config.PERSONAL_EMAIL }}</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <div id="virtual">
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">My email...</h4>
+              </div>
+              <div class="modal-body">
+                <p>Please drop me a note on {{ config.PERSONAL_EMAIL }}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+
           </div>
         </div>
 
-      </div>
+        <footer class="text-center">
+            <div class="footer-above">
+                <div class="container">
+                    <div class="row">
+                        <div class="footer-col col-lg-12">
+                            <h3>Contact Me...</h3>
+                            <ul class="list-inline">
+                                <li>
+                                    <a href="{{ config.FACEBOOK }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="{{ config.GOOGLE_PLUS }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                                </li>
+                                <li>
+                                    <a href="{{ config.GIT_HUB }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
+                                </li>
+                                <li>
+                                    <a href="{{ config.LINKED_IN }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                                </li>
+                                <li>
+                                    <span>|</span>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn-social btn-outline" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-envelope"></i></button>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('fileio.get_doc', doc_path='NinadMhatre.docx') }}" class="page-scroll btn-social btn-outline"><i class="fa fa-fw fa-file-word-o"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-below">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p style="font-size: 80%;">
+                                Created using
+                                <a href="https://pypi.python.org/pypi/Flask">flask</a>
+                                | <a href="https://pypi.python.org/pypi/Flask-Blogging">flask-blogging</a>
+                                | <a href="https://pypi.python.org/pypi/gunicorn">gunicorn</a>
+                                | <a href="http://getbootstrap.com/">bootstrap</a>
+                            </p>
+                            Copyright &copy; Ninad Mhatre - 2015-16
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
-
-    <footer class="text-center">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-lg-12">
-                        <h3>Contact Me...</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="{{ config.FACEBOOK }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="{{ config.GOOGLE_PLUS }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                            </li>
-                            <li>
-                                <a href="{{ config.GIT_HUB }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
-                            </li>
-                            <li>
-                                <a href="{{ config.LINKED_IN }}" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <span>|</span>
-                            </li>
-                            <li>
-                                <button type="button" class="btn-social btn-outline" data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-envelope"></i></button>
-                            </li>
-                            <li>
-                                <!-- EDIT_THIS  : change file name for resume -->
-                                <a href="{{ url_for('fileio.get_doc', doc_path='YourName.docx') }}" class="page-scroll btn-social btn-outline"><i class="fa fa-fw fa-file-word-o"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-below">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p style="font-size: 80%;">
-                            Created using
-                            <a href="https://pypi.python.org/pypi/Flask">flask</a>
-                            | <a href="https://pypi.python.org/pypi/Flask-Blogging">flask-blogging</a>
-                            | <a href="https://pypi.python.org/pypi/gunicorn">gunicorn</a>
-                            | <a href="http://getbootstrap.com/">bootstrap</a>
-                        </p>
-                        Copyright &copy; Test User - 2015-16  <!-- EDIT_THIS : Change name in copyright -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 {% endmacro %}
 
 {% macro add_link_new_tab(name, url) %}
@@ -80,9 +81,74 @@
 {% endmacro %}
 
 {% macro add_sharing() %}
-        <div class="social" style="padding-top: 10px;">
-            <button type="button" class="btn btn-default btn-xs shareSelector" aria-label="Left Align">
-                <span class="glyphicon glyphicon glyphicon-globe" aria-hidden="true"> Share</span>
-            </button>
+        <div class="social" style="padding-top: 7px;">
+            <a class="btn icon-btn btn-danger btn-sm shareSelector" href="#" aria-label="Left Align">
+                <span class="glyphicon btn-glyphicon glyphicon-send img-circle text-primary"></span>Share
+            </a>
         </div>
 {% endmacro %}
+
+{% macro addMissingComment(remoteVersion) %}
+{%- if remoteVersion == '--' -%}
+    title="Missing at PyPi, are you using deprecated module?"
+{%- endif -%}
+{% endmacro %}
+
+{%- macro addTopNavigation(user, show_profile=False) %}
+    <li class="dropdown">
+        {%- if show_profile %}
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile<span class="caret"></span></a>
+        <ul class="dropdown-menu" style="font-size: 80%;">
+            <li class="page-scroll"><a href="#about">About</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="page-scroll"><a href="#skills">Skills</a></li>
+            <li class="page-scroll"><a href="#projects">Projects</a></li>
+            <li class="page-scroll"><a href="#resume">Resume</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="page-scroll"><a href="#virtual">Contact Me</a></li>
+        </ul>
+        {% else -%}
+            <li> <a href="/">Home</a></li>
+        {% endif -%}
+    </li>
+    {{ addAdminNavigation(user) }}
+    <li> <a href="/blog">Blog</a></li>
+    <li> <a href="/apps">Apps</a></li>
+    <li> <a class="page-scroll" href="#virtual">Contact</a></li>
+    {{ addLogoutLink(user) }}
+{% endmacro -%}
+
+{%- macro addAdminNavigation(user) %}
+    {%- if user.is_authenticated() == True -%}
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button"
+           aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+        <ul class="dropdown-menu" style="font-size: 80%;">
+            <li><a href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{{ url_for('fileio.upload') }}">Upload Files</a></li>
+            <li><a href="{{ url_for('admin.mail_test') }}">Mail Test</a></li>
+            <li><a href="{{ url_for('admin.alert') }}">Manage Alert</a></li>
+        </ul>
+    </li>
+    {%- endif -%}
+{% endmacro -%}
+
+{% macro addLogoutLink(user) %}
+    {% if user.is_authenticated() == True %}
+        <li> <a href="/logout">Logout</a></li>
+    {% endif %}
+{% endmacro %}
+
+{% macro AddPageViewCount() %}
+    <div class="col-lg-12" style="padding-bottom: 7px;">
+        <div class="btn icon-btn btn-info btn-sm pull-right" title="Total Page Visits">
+            <span class="glyphicon btn-glyphicon glyphicon-eye-open img-circle text-info"></span>
+            <span id="views">0</span>
+        </div>
+    </div>
+{% endmacro %}
+
+{%- macro addCSRFToken() %}
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+{%- endmacro %}

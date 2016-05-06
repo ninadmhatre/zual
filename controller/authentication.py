@@ -5,7 +5,7 @@ import hashlib
 import datetime
 import pdb
 
-from flask import Blueprint, render_template, abort, current_app, request, flash, redirect, url_for
+from flask import Blueprint, render_template, abort, current_app, request, flash, redirect, url_for, session, g
 from flask.ext.login import login_user, logout_user, login_required
 
 from application import User, mailer, app
@@ -14,9 +14,8 @@ from collections import namedtuple
 
 auth = Blueprint('auth', __name__)
 
-# TODO: flash messages not working at the moment!
 
-chaabi = 'your_password_123'  # <-- EDIT_THIS 
+chaabi = 'your_password_123'  # <-- EDIT_THIS
 
 MailInfo = namedtuple('MailInfo', 'Sender To Message Subject')
 
@@ -105,9 +104,10 @@ def guard(stage):
 
 @auth.route("/login/", methods=['GET', 'POST'])
 def login():
+    session.permanent = True
     #pdb.set_trace()
     if DISABLE_LOGIN:
-        flash('Login is disable because of many failed login attempts!')
+        flash('error:Login is disable because of many failed login attempts!')
         return render_template('login/login.html', disable=True)
 
     if request.method == 'POST':
@@ -116,9 +116,11 @@ def login():
 
         if not authenticate(user, pawd):
             guard('POST')
-            flash("Invalid Username or Password!", 'error')
+            flash("error:Invalid Username or Password!")
+            #return render_template('login/login.html')
         else:
-            user = User("test_user")   # EDIT_THIS  : change user name! 
+            flash("info:Login Successful!")
+            user = User("test_user")
             login_user(user)
             return redirect("/blog")
     guard('GET')
@@ -131,7 +133,7 @@ def enable(token):
     try:
         email = ts.loads(token, salt=email_confirm_key, max_age=84600 * 3)
     except:
-        flash('Invalid Enable Link!!', 'error')
+        flash('error:Invalid Enable Link!!')
         abort(404)
 
     if email == current_app.config['ADMIN_MAIL']:
@@ -139,14 +141,15 @@ def enable(token):
         DISABLE_LOGIN = False
         NOTIFIED = False
     else:
-        flash('Invalid Enable Link!!!', 'error')
+        flash('error:Invalid Enable Link!!!')
         abort(404)
 
-    flash('Account enabled successfully!', 'info')
+    flash('info:Account enabled successfully!')
     return redirect(url_for('auth.login'))
 
 
 @auth.route("/logout/")
 def logout():
     logout_user()
+    flash('info:User Logged Out Successfully!')
     return redirect("/")

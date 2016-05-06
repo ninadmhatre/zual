@@ -1,53 +1,40 @@
 {% extends 'layout.html' %}
 
 {% block title %}Upload{% endblock %}
+{% import 'macro/display_helper.html' as helper %}
+
 {% block topnavigation %}
-            <li> <a class="page-scroll" href="#contact">Contact</a> </li>
+    {{ helper.addTopNavigation(current_user, show_profile=False) }}
 {% endblock %}
+
 {% block body %}
+    <div class="row col-lg-4 col-lg-offset-4" style="padding-top: 100px;">
+        <div class="panel panel-default">
+            <div class="panel panel-heading">
+                <h4 class="panel-title">Upload Form</h4>
+            </div>
+            <div class="panel-body">
+                <form id="upload-form" action="" method="post" enctype="multipart/form-data">
+                    {{ helper.addCSRFToken() }}
+                    <div class="modal-body">
+                        <select id="type" name="type" class="form-control">
+                            <option value="dp">Display Picture</option>
+                            <option value="resume">Resume</option>
+                            <option value="blog">Blog Picture</option>
+                        </select>
 
-    <header>
-        <div class="header-content">
-            <div class="header-content-inner">
-                    <h2 style="color: white;">Please Login</h2>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                    <div class="alert alert-{{category}} alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {{ message }}
+                        <input id="file" name="file" class="form-control" type="file" placeholder="Please select a file to be uploaded" required
                     </div>
+                    <br>
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <div>
+                            <button type="submit" class="btn btn-info btn-sm btn-block">Upload</button>
+                        </div>
                     </div>
-                 </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-    <div class="col-lg-4 col-lg-offset-4">
-    <form id="login-form" action="" method="post" enctype="multipart/form-data">
-        <div class="modal-body">
-            <select id="type" name="type" class="form-control">
-                <option value="dp">Display Picture</option>
-                <option value="resume">Resume</option>
-                <option value="blog">Blog Picture</option>
-            </select>
-
-            <input id="file" name="file" class="form-control" type="file" placeholder="Please select a file to be uploaded" required/>
-        </div>
-        <div class="modal-footer col-lg-6 col-lg-offset-3">
-            <div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Upload</button>
+                </form>
             </div>
         </div>
-    </form>
-
-
     </div>
-        </div>
-    </header>
 
+    {{ helper.footer() }}
 {% endblock %}

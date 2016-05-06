@@ -9,10 +9,11 @@ from flask.ext.login import login_required
 from werkzeug import secure_filename
 
 from application import app, stat
+from libs.Utils import Utility
 
 fileio = Blueprint('fileio', __name__)
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'doc', 'docx', 'xls', 'xlsx'])
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'doc', 'docx', 'xls', 'xlsx'}
 
 
 @fileio.route('/img/<path:img_path>', methods=['GET'])
@@ -28,7 +29,7 @@ def get_img(img_path):
 def get_doc(doc_path):
     ext = os.path.basename(doc_path).split('.')[-1]
     if ext and ext in app.config['DOCS_VALID_EXTS']:
-        stat.update_download_count(doc_path, request.remote_addr)
+        stat.update_download_count(doc_path, Utility.get_ip(request))
         return send_from_directory(app.config['DOCS_FOLDER'], doc_path, as_attachment=True)
     else:
         abort(404)
@@ -40,7 +41,7 @@ def upload():
     # import pdb
     # pdb.set_trace()
     if request.method == "POST":
-        type = request.form.get('type')
+        typ = request.form.get('type')
         file = request.files.get('file')
         result = False
         if file and allowed_file(file.filename):
@@ -51,12 +52,12 @@ def upload():
             except Exception as e:
                 return render_template('error_code/404.html', msg='Failed to save file...[Err:{0}]'.format(e))
             else:
-                result = move_file(type, save_as, filename, backup=True, linkit=True)
+                result = move_file(typ, save_as, filename, backup=True, linkit=True)
 
         if not result:
-            flash('Failed To Upload file..., Try again...')
+            flash('error:Failed To Upload file..., Try again...')
         else:
-            flash('File uploaded Successfully!')
+            flash('info:File uploaded Successfully!')
 
     return render_template('upload/upload.html')
 
@@ -79,15 +80,22 @@ def __move(src, dst, backup, linkit, link_name):
         return False
 
     if linkit and link_name:
-        link_path = os.path.join(os.path.dirname(dst), link_name)
-        if os.path.islink(link_path):
+        # Change the link creation to be relative to current directory to avoid link failing across dev & prod setup
+        # Like, if you create link and upload that will copy the link path the git, this will break prod
+        # Hopefully, this will solve the issue
+        _old_pwd = os.path.abspath('.')
+        os.chdir(os.path.dirname(dst))
+        result = True
+        if os.path.islink(link_name):
             try:
-                os.remove(link_path)
+                os.remove(link_name)
             except OSError:
-                return False
-        os.symlink(dst, link_path)
-        return True
-    return True
+                result = False
+            else:
+                os.symlink(os.path.basename(dst), link_name)
+            finally:
+                os.chdir(_old_pwd)
+                return result
 
 
 def move_file(typ, src, name, backup=True, linkit=True):

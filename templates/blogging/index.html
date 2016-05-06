@@ -3,11 +3,9 @@
 {% block title %}Blog{% endblock title %}
 
 {% block topnavigation %}
-            {% if current_user.is_authenticated() %}
-            <li> <a href="/dashboard">Dashboard</a></li>
-            {% endif %}
-            <li class="page-scroll"><a href="#contact">Contact</a></li>
+    {{ helper.addTopNavigation(current_user, show_profile=False) }}
 {% endblock %}
+
 
 {% block extrajs %}
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
@@ -58,11 +56,12 @@
                     <a href="{{ post.url }}">
                         <div class="toned-down-heading">{{ post.title }}</div>
                     </a>
-                    <div>Posted on<em>{{post.post_date.strftime('%d %b, %Y')}}</em></div>
+                    <div>Posted on <strong>{{post.post_date.strftime('%d %b, %Y')}}</strong></div>
 
             <div class="blog_snippet_text">
                 {{ post.rendered_text | safe | snippet }}
-                <br><a href="{{ post.url }}" style="font-size: 80%;">Read More...</a>
+                <br>
+                <a href="{{ post.url }}" style="font-size: 80%;">Read More...</a>
             </div>
 
                     <div class="blog_tags">
@@ -87,13 +86,9 @@
                     <ul class="pager">
                         {% if meta.pagination.prev_page %}
                             <li><a href="{{meta.pagination.prev_page}}">&laquo;Prev</a></li>
-                        {% else %}
-                            <!--<li class="disabled"><a href="">&laquo; Prev</a></li>-->
                         {% endif %}
                         {% if meta.pagination.next_page %}
                             <li><a href="{{meta.pagination.next_page}}">Next &raquo;</a></li>
-                        {% else %}
-                            <!--<li class="disabled"><a href="">Next &raquo;</a></li>-->
                         {% endif %}
                     </ul>
                 </div>
