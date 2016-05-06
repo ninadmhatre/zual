@@ -1,22 +1,14 @@
 {% extends 'layout.html' %}
+{% import 'macro/display_helper.html' as helper %}
 
 {% block title %}Blog - Login {% endblock %}
 {% block topnavigation %}
-            <li> <a class="page-scroll" href="#contact">Contact</a> </li>
+    {{ helper.addTopNavigation(current_user, show_profile=False) }}
 {% endblock %}
 
+
 {% block body %}
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class="flash_msg hide">
-            {% for category, message in messages %}
-                <li>{{ category }}:{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-
+    <div class="row">
     {% if disable != True %}
         <div class="row col-lg-4 col-lg-offset-4" style="padding-top: 100px;">
             <div class="panel panel-default">
@@ -25,6 +17,7 @@
                 </div>
                 <div class="panel-body">
                     <form id="login-form" action="" method="post">
+                        {{ helper.addCSRFToken() }}
                         <div class="modal-body">
                             <input id="login_username" name="user" class="form-control" type="text" placeholder="Username" required>
                             <input id="login_password" name="chaabi" class="form-control" type="password" placeholder="Password" required>
@@ -39,7 +32,7 @@
             </div>
         </div>
     {% else %}
-        <div class="well">
+        <div class="row well">
             <h3>Login Is Disabled!!!</h3>
             <p>
                 Login to admin mode is disabled due to many failed login attempts! Please check your admin email address
@@ -47,4 +40,6 @@
             </p>
         </div>
     {% endif %}
+    </div>
+    {{ helper.footer() }}
 {% endblock %}

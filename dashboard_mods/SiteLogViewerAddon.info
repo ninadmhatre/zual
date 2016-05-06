@@ -1,0 +1,12 @@
+
+{
+    "uuid": "bbe45743-fc93-4030-bcde-f6fbb98abac5",
+    "name": "SiteLogViewerAddon",
+    "type": "DEFAULT",
+    "description": "Zual Log Viewer - Show gunicorn log!",
+    "execution_seq": ["start", "execute"],
+    "stop_seq": ["stop"],
+    "version": "0.1",
+    "author": "Ninad Mhatre",
+    "help_url": "https://github.com/ninadmhatre/zual/tree/master/dashboard_mods/SiteLogViewerAddon.py"
+}

@@ -3,11 +3,9 @@
 
 {% block title %}Blog{% endblock title %}
 {% block topnavigation %}
-            {% if current_user.is_authenticated() %}
-            <li> <a href="/dashboard">Dashboard</a></li>
-            {% endif %}
-            <li class="page-scroll"><a href="/blog">Blog</a> </li>
+    {{ helper.addTopNavigation(current_user, show_profile=False) }}
 {% endblock %}
+
 
 {% block jquery %}
 {% endblock %}
@@ -80,12 +78,14 @@
                 {% endif %}
 
                 <div class="blog_entry">
-                    <div class="toned-down-heading blog-header">{{ post.title }}</div>
+                    <div class="toned-down-heading blog-header title">{{ post.title }}</div>
                     <div class="info">
-                        Posted by <a title="get all post by this author"
-                                     href="{{ url_for('blogging.posts_by_author', user_id=post.user_id)}}"><em>{{post.user_name}}</em></a>
-                        on {{post.post_date.strftime('%d %b, %Y')}}
+                        Posted by <strong>{{post.user_name}}</strong> on {{post.post_date.strftime('%d %b, %Y')}}
+                        {%- if config['ENABLE_PAGE_COUNTER'] == True -%}
+                        <i>&nbsp; | Views: </i> <span id="views">0</span>
+                        {%- endif -%}
                     </div>
+
                     <div class="blog_post_content" style="padding-top: 20px;">
                         {{post.rendered_text | safe}}
                     </div>
@@ -110,8 +110,8 @@
 
                 <hr class="star-primary">
 
-                <!-- NOTE: Below Section of Code (i.e showing 'next' and 'previous' post to the current post are not supported by 
-                           Flask-Blogging, these are additional changes and PR (Pull Request) is already raised by not approved 
+                <!-- NOTE: Below Section of Code (i.e showing 'next' and 'previous' post to the current post are not supported by
+                           Flask-Blogging, these are additional changes and PR (Pull Request) is already raised by not approved
                            by author of the Flask-Blogging!
                 <nav>
                     <ul class="pager">
@@ -133,13 +133,13 @@
                 </nav>
                 -->
 
-                {% include 'blogging/comments.html' %}
-                <div id="spot-im-frame-inpage" data-post-id="{{ post.title|page_id }}"></div>
+                {% if config['DEBUG'] != True %}
+                    {% include 'blogging/comments.html' %}
+                    <div id="spot-im-frame-inpage" data-post-id="{{ post.title|page_id }}"></div>
+                {% endif %}
             </div>
         </div>
     </div>
 
-<div id="virtual">
     {{ helper.footer() }}
-</div>
 {% endblock body %}

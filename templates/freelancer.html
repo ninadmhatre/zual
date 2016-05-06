@@ -1,27 +1,11 @@
 {% extends 'layout.html' %}
 {% import 'macro/display_helper.html' as helper %}
-{% block title %}Your Name - Profile{% endblock %}  <!-- EDIT_THIS  -->
+{% block title %}Ninad Mhatre - Profile{% endblock %}
 
 {% block topnavigation %}
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile<span class="caret"></span></a>
-                <ul class="dropdown-menu" style="font-size: 80%;">
-                    <li class="page-scroll"><a href="#about">About</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="page-scroll"><a href="#skills">Skills</a></li>
-                    <li class="page-scroll"><a href="#projects">Projects</a></li>
-                    <li class="page-scroll"><a href="#resume">Resume</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="page-scroll"><a href="#virtual">Contact Me</a></li>
-              </ul>
-            </li>
-            <li> <a class="page-scroll" href="/blog">Blog</a></li>
-            {% if current_user.is_authenticated() %}
-            <li> <a href="/dashboard">Dashboard</a></li>
-            {% endif %}
-            <li> <a class="page-scroll" href="/apps">Apps</a></li>
-            <li> <a class="page-scroll" href="#virtual">Contact</a></li>
+    {{ helper.addTopNavigation(current_user, show_profile=True) }}
 {% endblock %}
+
 
     <!--&lt;!&ndash; HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries &ndash;&gt;-->
     <!--&lt;!&ndash; WARNING: Respond.js doesn't work if you view the page via file:// &ndash;&gt;-->
@@ -112,7 +96,7 @@
                         <tbody>
                             <tr>
                                 <!-- EDIT_THIS : Edit below section -->
-                                <td class="bold">Categories</td> 
+                                <td class="bold">Categories</td>
                                 <td>Add different categories here, Languages, OS, Framework and etc...</td>
                             </tr>
                         </tbody>
@@ -192,7 +176,5 @@
         </div>
     </section>
 
-    <div id="virtual">
-        {{ helper.footer() }}
-    </div>
+    {{ helper.footer() }}
 {% endblock %}

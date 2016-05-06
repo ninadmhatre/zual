@@ -1,0 +1,22 @@
+__author__ = '$AUTHOR'
+
+from addonpy.IAddonInfo import IAddonInfo
+
+
+class $ADDON_NAME(IAddonInfo):
+    def template(self):
+        raise NotImplemented
+
+    def get_data(self, as_html=True):
+        raise NotImplemented
+
+    def name(self):
+        return self.__addon__().replace('Addon', '')
+
+    def $EXECUTE_FUNCTION(self):
+        raise NotImplemented
+
+    @staticmethod
+    def __addon__():
+        return '$ADDON_NAME'
+

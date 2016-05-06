@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block title %}Setup Alert Message{% endblock %}
+{% import 'macro/display_helper.html' as helper %}
+
+{% block topnavigation %}
+    {{ helper.addTopNavigation(current_user, show_profile=False) }}
+{% endblock %}
+
+
+{% block body %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                <div class="alert alert-{{category}} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                    {{ message }}
+                </div>
+                </div>
+             </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="row col-lg-8 col-lg-offset-2" style="padding-top: 100px;">
+        <div class="panel panel-default">
+            <div class="panel panel-heading">
+                <h4 class="panel-title">Mail Test</h4>
+            </div>
+            <div class="panel-body">
+                <form id="alert-form" action="" method="post">
+                    {{ helper.addCSRFToken() }}
+                    <div class="modal-body">
+                        <label for="type">Alert Type: </label>
+                        {% for alert in ('info', 'warning', 'danger', 'success') %}
+                            <input type="radio" id="type" name="type" value="{{ alert }}" {% if data['type'] == alert %} checked {% endif %} required> {{ alert|capitalize }}
+                        {% endfor %}
+                        <br>
+                        <textarea rows="5" cols="60" required id="data" name="data" placeholder="Enter message to be displayed, html message is accepted!">
+                            {%- if data -%}{{ data['text'] }}{%- endif -%}
+                        </textarea>
+                        <br>
+                        {% if data %}
+                            {% if data['disabled'] == 'False' %}
+                                <label for="disable">Disable Alert? </label>
+                                <input type="checkbox" value="on" name="disable" id="disable">
+                            {% else %}
+                                <label for="disable">Enable Alert? </label>
+                                <input type="checkbox" value="off" name="disable" id="disable">
+                            {% endif %}
+                        {% endif %}
+                        <div style="padding-top: 10px;">
+                            <input type="submit" class="btn btn-success btn-sm" value="Set">
+                            <input type="reset" class="btn btn-danger btn-sm">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{ helper.footer() }}
+{% endblock %}
