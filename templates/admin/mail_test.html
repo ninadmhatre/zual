@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block title %}Mail Test{% endblock %}
+{% import 'macro/display_helper.html' as helper %}
+{% block topnavigation %}
+    {{ helper.addTopNavigation(current_user, show_profile=False) }}
+{% endblock %}
+
+{% block body %}
+    <div class="row col-lg-8 col-lg-offset-2" style="padding-top: 100px;">
+        <div class="panel panel-default">
+            <div class="panel panel-heading">
+                <h4 class="panel-title">Mail Test</h4>
+            </div>
+            <div class="panel-body">
+                <div class="well well-sm" style="padding-bottom: 10px;">
+                    Enter 'to' address and data to be sent below and see if you can send email from current setup!
+                </div>
+
+                <form id="mailchk-form" action="" method="post">
+                    {{ helper.addCSRFToken() }}
+                    <div class="modal-body">
+                        <input id="from_addr" name="from_addr" type="email" placeholder="Enter 'from' address e.g test@mydomain.com" class="input form-control" required>
+                        <input id="to_addr" name="to_addr" type="email" placeholder="Enter 'to' address e.g your.name@gmail.com" class="input form-control" required>
+                        <input id="subject" name="subject" type="text" placeholder="Enter mail subject e.g. sample mail" class="input form-control" required>
+                        <textarea id="body" name="body" class="form-control" placeholder="Enter message... e.g. Hello! " required></textarea>
+                    </div>
+                    <br>
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <div>
+                            <button type="submit" class="btn btn-info btn-sm btn-block">Send Mail</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{ helper.footer() }}
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% import 'macro/display_helper.html' as helper %}
+
+{% block topnavigation %}
+    {{ helper.addTopNavigation(current_user, show_profile=False) }}
+{% endblock %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_css %}
+    .panel-success > .panel-heading {
+        background-color: #298a08;
+        border-color: #298a08;
+    }
+
+    li.danger > a {
+        color: #e74c3c !important;
+        font-weight: bold;
+    }
+
+    p, span.errors {
+        font-size: 90%;
+        font-style: italic;
+        color: #e74c3c;
+    }
+
+    li.L0, li.L1, li.L2, li.L3,
+    li.L5, li.L6, li.L7, li.L8
+    { list-style-type: decimal !important }
+{% endblock %}
+
+{% block jquery %}
+
+    var toHigher = function() {
+        $('.bytes').each(function() {
+           var $num = parseInt($(this).text());
+           var toolTip = null;
+           if ( $num > 10e8 ) {  /* GB */
+                toolTip = $num / 10e8 + ' GB';
+           } else if ( $num > 10e5 ) {  /* MB */
+                toolTip = $num / 10e5 + ' MB';
+           } else if ( $num > 10e2 ) {  /* KB */
+                toolTip = $num / 10e2 + ' KB';
+           }
+           $(this).attr('title', toolTip);
+        })
+    };
+
+    var countFailures = function() {
+        var $fCount = $('li.danger').length;
+        if ( $fCount > 0 ) {
+            var $hError = $('.errors');
+            showError('Errors : ' + $fCount + ' tab(s) has errors; please check highlighted tabs...');
+        }
+    };
+
+    countFailures();
+    toHigher();
+{% endblock %}
+
+{% block body %}
+    <div class="container" style="padding-top: 100px;">
+        <ul class="nav nav-tabs">
+            {%- for addon in result|sort %}
+                <li {%- if result[addon].status == False %} class="danger active in" {% endif -%}><a data-toggle="tab" href="#{{ addon }}">{{ result[addon].name }}</a></li>
+            {% endfor -%}
+        </ul>
+
+        <br>
+
+        <div class="tab-content">
+          {% for addon in result|sort %}
+            <div id="{{ addon }}" class="tab-pane fade {%- if loop.index == 1 %} in active {% endif -%}">
+                {% if result[addon].desc %}
+                <div class="well col-lg-12" style="font-size: 80%">
+                    <strong>Description: </strong>{{ result[addon].desc|safe -}}
+                </div>
+                {% endif %}
+                {{ result[addon].html | safe }}
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+    {{ helper.footer() }}
+{% endblock %}

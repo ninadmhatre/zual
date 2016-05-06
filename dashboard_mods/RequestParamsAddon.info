@@ -1,0 +1,11 @@
+{
+    "uuid": "70bcd458-1cb2-4fd8-8f41-b82562b28f5c",
+    "name": "RequestParamsAddon",
+    "type": "DEFAULT",
+    "description": "Check what you get in request params, good for debugging header information; specially remote ip address like things",
+    "execution_seq": ["start", "execute"],
+    "stop_seq": ["stop"],
+    "version": "0.1",
+    "author": "<Please Specify Author>",
+    "help_url": "https://github.com/ninadmhatre/zual/tree/master/dashboard_mods/RequestParamsAddon.py"
+}

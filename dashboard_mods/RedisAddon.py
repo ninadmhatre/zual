@@ -5,6 +5,7 @@ __author__ = 'Ninad Mhatre'
 
 from addonpy.IAddonInfo import IAddonInfo
 from libs.RedisCache import RedisCache
+from libs.AddonReturnType import AddonReturnType
 from jinja2 import Template
 
 
@@ -36,54 +37,88 @@ from jinja2 import Template
 # 'pubsub_patterns': 0, 'instantaneous_output_kbps': 0.0, 'rdb_bgsave_in_progress': 0}
 
 
-class RedisAddon(IAddonInfo):
+class RedisAddon(IAddonInfo, AddonReturnType):
     result = None
+    status = True  # Data received properly
 
-    def execute(self, config):
+    def execute(self, *args, **kwargs):
         r_instance = RedisCache()
         data = r_instance.info()
 
         self.result = {}
+
+        if not data:
+            return
+
         keys = ('redis_version', 'redis_mode', 'uptime_in_seconds', 'used_memory_human', 'used_memory_peak_human',
                 'used_cpu_sys', 'expired_keys', 'uptime_in_days',
                 'connected_clients', 'arch_bits', 'total_connections_received', 'role', 'evicted_keys',
                 'tcp_port', 'mem_fragmentation_ratio')
 
+        nested_keys = (('db0', 'keys', 'total_keys'),)
+
         for key in keys:
             self.result[key] = data[key]
+
+        for k in nested_keys:
+            self.result[k[2]] = data[k[0]][k[1]]
 
     def template(self):
         keys = ('redis_version', 'redis_mode', 'arch_bits', 'uptime_in_seconds',
                 'used_memory_human', 'used_memory_peak_human',
                 'used_cpu_sys', 'expired_keys', 'uptime_in_days',
                 'connected_clients', 'total_connections_received', 'role', 'evicted_keys',
-                'tcp_port', 'mem_fragmentation_ratio')
+                'tcp_port', 'mem_fragmentation_ratio', 'total_keys')
 
-        t = Template('''<div class="col-lg-10"><div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#redis">{{ name }}</a></h3>
-            </div>
-            <div id="redis" class="panel-collapse collapse in">
-                <div class="panel-body">
-                    <div class="col-lg-8">
-                        <table class="table table-bordered">
-                        {% for k in keys %}
-                            <tr>
-                                <td>{{ k|replace('_', ' ') }}</td>
-                                <td>{{ data[k] }}</td>
-                            </tr>
-                        {% endfor %}
-                        </table>
-                        <br>
-                        <p style="font-size: 80%; color: gray;">Know more about this module <a href="{{ help_url }}" target="_blank">here</a></p>
-                    </div>
+        if self.result:
+            html = '''<div class="col-lg-12"><div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {{- name -}}
+                        <span class="pull-right glyphicon glyphicon-thumbs-up"></span>
+                    </h3>
                 </div>
-            </div>
-        </div></div>''')
+                <div id="redis" class="panel-collapse">
+                    <div class="panel-body">
+                        <div class="col-lg-8">
+                            <table class="table table-bordered table-responsive">
+                            {% for k in keys %}
+                                <tr>
+                                    <td>{{ k|replace('_', ' ') }}</td>
+                                    <td>{{ data[k] }}</td>
+                                </tr>
+                            {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="font-size: 80%;">Know more about this module <a href="{{ help_url }}" target="_blank">here</a></div>
+                </div>
+            </div></div>'''
+        else:
+            html = '''<div class="col-lg-12"><div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {{- name -}}
+                        <span class="pull-right glyphicon glyphicon-thumbs-down"></span>
+                    </h3>
+                </div>
+                <div id="redis" class="panel-collapse">
+                    <div class="panel-body">
+                        <div class="col-lg-12">
+                            <h4>Redis seems to be down! please check...</h4>
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="font-size: 80%;">Know more about this module <a href="{{ help_url }}" target="_blank">here</a></div>
+                </div>
+            </div></div>
+            '''
+            self.status = False
+
+        t = Template(html)
 
         return t.render(name=self.name, keys=keys, data=self.result, help_url=self.get_help_url())
 
-    def get_result(self, as_html=True):
+    def get_data(self, as_html=True):
         if as_html:
             return self.template()
         return self.result

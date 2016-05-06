@@ -1,0 +1,11 @@
+{
+    "uuid": "f69a6240-22b7-4232-bf69-2c58a016277b",
+    "name": "ViewStatsAddon",
+    "type": "DEFAULT",
+    "description": "Show View stats of individual page, basic version of analytics",
+    "execution_seq": ["start", "execute"],
+    "stop_seq": ["stop"],
+    "version": "1.0.0",
+    "author": "ninad mhatre",
+    "help_url": "https://github.com/ninadmhatre/zual/tree/master/dashboard_mods/ViewStatsAddon.py"
+}

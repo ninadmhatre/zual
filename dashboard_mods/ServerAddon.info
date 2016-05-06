@@ -3,10 +3,10 @@
     "uuid": "fd637cc3-0428-436f-900e-bc9ccbb2779a",
     "name": "ServerAddon",
     "type": "DEFAULT",
-    "description": "<Please add some description!>",
+    "description": "Get Information about the server on which site is running! Expecting Linux machine...",
     "execution_seq": ["start", "execute"],
     "stop_seq": ["stop"],
     "version": "0.1",
     "author": "Ninad Mhatre",
-    "help_url": "https://github.com/ninadmhatre/zual/blob/master/dashboard_mods/ServerAddon.py"
+    "help_url": "https://github.com/ninadmhatre/zual/tree/master/dashboard_mods/ServerAddon.py"
 }

@@ -1,0 +1,151 @@
+{% extends 'layout.html' %}
+{% import 'macro/display_helper.html' as helper %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block topnavigation %}
+    {{ helper.addTopNavigation(current_user, show_profile=False) }}
+{% endblock %}
+
+
+{% block extra_css %}
+    .panel-success > .panel-heading {
+        background-color: #298a08;
+        border-color: #298a08;
+    }
+
+    li.danger > a {
+        color: #e74c3c !important;
+        font-weight: bold;
+    }
+
+    p, span.errors {
+        font-size: 90%;
+        font-style: italic;
+        color: #e74c3c;
+    }
+
+    li.L0, li.L1, li.L2, li.L3,
+    li.L5, li.L6, li.L7, li.L8
+    { list-style-type: decimal !important }
+{% endblock %}
+
+{% block jquery %}
+    $('#edit_notice').on('click', function() {
+        var $action = $('input#noitce_action');
+        $action.val('disable');
+    });
+
+    $('#toggle_notice').on('click', function() {
+        var $action = $('input#noitce_action');
+        $action.val('disable');
+    });
+{% endblock %}
+
+{% block body %}
+    <div class="container" style="padding-top: 100px;">
+        {% if data and not error %}
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel panel-heading">
+                        <h4 class="panel-title">Manage Site Notice</h4>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered" style="margin: 5px 10px;">
+                            <tbody>
+                                {% for k, v in data.items() %}
+                                    <tr>
+                                        <td>{{ k }}</td>
+                                        <td>{{ v }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <form id="modify_alert" action="{{ url_for('admin.notice_manage') }}" method="post">
+                            <input type="hidden" value="{{ data['enabled'] }}" id="alert_stat" name="alert_stat">
+                            <input type="hidden" value="" id="notice_action" name="notice_action">
+                            <input type="submit" value="{%- if data['enabled'] == True -%}Disable Alert{%- else -%}Enable Alert{%- endif -%}"
+                                   id="toggle_notice" name="toggle_notice" class="btn btn-danger btn-sm" style="margin: 5px 10px;">
+
+                            <div class="form-group edit_notice" style="padding-top: 15px;">
+                              <div class="col-lg-10">
+                                <textarea class="form-control" id="setfor" name="setfor" rows="8" cols="500"
+                                          style="font-family: Consolas, monaco, monospace; font-size: 14px">
+{
+    text: "{{ data['text'] }}",
+    type: "{{ data['type'] }}",
+    enabled: "{{ data['enabled'] }}",
+    can_remove: "{{ data['can_remove'] }}",
+    set_for: "{{ data['set_for'] }}",
+    unset_for: "{{ data['unset_for'] }}",
+}
+                                </textarea>
+                              </div>
+                                <div class="col-lg-10" style="padding-top: 10px;">
+                                    <input type="submit" id="edit_notice" name="edit_notice" class="btn btn-success btn-sm " value="Edit & Save"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-lg-10 col-lg-offset-1">
+                <h5>No alerts found! Want to setup one?</h5>
+                <div class="panel panel-default">
+                    <div class="panel panel-heading">
+                        <h4 class="panel-title">Manage Site Notice</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="well well-sm">
+                            Please read before you set any notice,
+                            <pre class="prettyprint language-py">
+{
+   text: "this is test",
+   type: "info/warning/error", [only 1 is possible]
+   enabled: "true/false", [default: true]
+   can_remove: "true/false", [default: false]
+   set_for: "/home,/form/xyz", [default: all] [specify all urls for which notice should be shown]
+   unset_for: "/error", [default: none] [specify all urls for which notice should not be shown]
+}
+                            </pre>
+
+                            Below is sample entry, with message shown on all except '/help' page
+                            <pre class="prettyprint language-py">
+{
+   text: "this message will be shown on all pages except '/help' ",
+   type: "error",
+   enabled: "true",
+   can_remove: "false",
+   set_for: "",
+   unset_for: "/help",
+}
+                            </pre>
+                        </div>
+                        <form id="msg" action="" method="post">
+                            <!-- Textarea -->
+                            <div class="form-group">
+                              <div class="col-lg-10 col-lg-offset-1">
+                                <textarea class="form-control" id="setfor" name="setfor" rows="10" cols="500"
+                                          style="font-family: Consolas, monaco, monospace; font-size: 14px">
+{
+    text: "",
+    type: "",
+    enabled: "",
+    can_remove: "",
+    set_for: "",
+    unset_for: "",
+}
+                                </textarea>
+                              </div>
+                            </div>
+                            <div class="col-lg-8 col-lg-offset-2" style="padding-top: 10px;">
+                                <input type="submit" class="btn btn-info btn-sm " value="Save"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block title %}Opps!{% endblock %}
+
+{% block body %}
+    <div class="col-lg-6 col-lg-offset-3" style="padding-top: 100px;">
+        <div class="row" style="color: red; padding: 10px 0px;">
+            401: You need to login to access this page, this incident will be reported!!
+        </div>
+        <br>
+        <div class="row" style="padding: 10px 0px;">
+            On lighter note, How about a Joke?
+        </div>
+        <div class="xkcd_img">
+            <img src="{{ url_for('fileio.get_img', img_path='incident.png') }}"alt="401 page, Shit! This is another type of incident which should be reported!"/>
+        </div>
+        <div class="row" style="font-size: 80%; color:gray; padding: 10px 0px;">
+            picture courtesy, XKCD!
+        </div>
+        <div class="row" style="padding: 10px 0px;">
+            Please click <a href="/blog">here</a> for blog or <a href="{{ url_for('home') }}">here</a> to go back to home.
+        </div>
+    </div>
+{% endblock %}

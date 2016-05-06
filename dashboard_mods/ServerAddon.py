@@ -4,11 +4,13 @@ __author__ = 'Ninad Mhatre'
 from addonpy.IAddonInfo import IAddonInfo
 from jinja2 import Template
 import psutil as ps
+from libs.AddonReturnType import AddonReturnType
 from datetime import datetime
 
 
-class ServerAddon(IAddonInfo):
+class ServerAddon(IAddonInfo, AddonReturnType):
     result = None
+    status = True
 
     def _get_cpu_stats(self):
         cpu_info = {'processors': ps.cpu_count(), 'times': ps.cpu_times(),
@@ -22,9 +24,9 @@ class ServerAddon(IAddonInfo):
             _p = p_info[p.pid]
             _p['exe'] = p.exe()
             _p['user'] = p.username()
-            _p['created_at'] = datetime.fromtimestamp(p.create_time())
-            _p['cpu_usage'] = p.cpu_percent()
-            _p['memory_usage'] = p.memory_percent()
+            _p['created_at'] = datetime.fromtimestamp(p.create_time()).strftime('%Y-%m-%d %H:%M:%S')
+            _p['cpu_usage'] = '{0:3.3f}'.format(p.cpu_percent())
+            _p['memory_usage'] = '{0:3.3f}'.format(p.memory_percent())
 
         return p_info
 
@@ -58,7 +60,7 @@ class ServerAddon(IAddonInfo):
     def _get_disk_stats(self):
         return ps.disk_usage('/')
 
-    def execute(self, config):
+    def execute(self, *args, **kwargs):
         from collections import OrderedDict
         self.result = OrderedDict()
         self.result['cpu'] = self._get_cpu_stats()
@@ -67,14 +69,17 @@ class ServerAddon(IAddonInfo):
         self.result['process'] = self._get_process_stats(self._search('python'))
 
     def template(self):
-        t = Template('''<div class="col-lg-10"><div class="panel panel-default">
+        html = '''<div class="col-lg-12"><div class="panel panel-success">
             <div class="panel-heading">
-                <h3 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#server">{{ name }}</a></h3>
+                <h3 class="panel-title">
+                    {{- name -}}
+                    <span class="pull-right glyphicon glyphicon-thumbs-up"></span>
+                </h3>
             </div>
-            <div id="server" class="panel-collapse collapse">
+            <div id="server" class="panel-collapse">
                 <div class="panel-body">
 
-                    <div class="panel panel-success">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">CPU Info</h3>
                         </div>
@@ -87,7 +92,7 @@ class ServerAddon(IAddonInfo):
                         </div>
                     </div>
 
-                    <div class="panel panel-success">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Memory Info</h3>
                         </div>
@@ -117,7 +122,7 @@ class ServerAddon(IAddonInfo):
                         </div>
                     </div>
 
-                    <div class="panel panel-success">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Disk Usage of '/'</h3>
                         </div>
@@ -131,7 +136,7 @@ class ServerAddon(IAddonInfo):
                         </div>
                     </div>
 
-                    <div class="panel panel-success">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Process Info</h3>
                         </div>
@@ -161,15 +166,16 @@ class ServerAddon(IAddonInfo):
                             </table>
                         </div>
                     </div>
-                    <br>
-                    <p style="font-size: 80%; color: gray;">Know more about this module <a href="{{ help_url }}" target="_blank">here</a></p>
                 </div>
+                <div class="panel-footer" style="font-size: 80%;">Know more about this module <a href="{{ help_url }}" target="_blank">here</a></div>
             </div>
-        </div></div>''')
+        </div></div>'''
+
+        t = Template(html)
 
         return t.render(data=self.result, name=self.name)
 
-    def get_result(self, as_html=True):
+    def get_data(self, as_html=True):
         if as_html:
             return self.template()
         return self.result
