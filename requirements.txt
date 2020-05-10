@@ -23,7 +23,7 @@ jsmin==2.1.4
 Markdown==2.6.6
 MarkupSafe==0.23
 meinheld==0.5.9
-psutil==4.1.0
+psutil==5.6.6
 redis==2.10.5
 requests==2.8.1
 simplejson==3.8.2
