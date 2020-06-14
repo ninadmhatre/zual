@@ -29,5 +29,5 @@ requests==2.8.1
 simplejson==3.8.2
 SQLAlchemy==1.0.12
 webassets==0.11.1
-Werkzeug==0.11.5
+Werkzeug==0.15.3
 WTForms==2.1
